@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>RainRoute | Smart Flood-Aware Navigation</title>
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="header">
+
+        <canvas id="rainCanvas" class="rain-canvas"></canvas>
+
+        <div class="header-content">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    🌧️
+                </div>
+
+                <div>
+
+                    <h1>RainRoute</h1>
+
+                    <span>
+                        Smart flood-aware navigation
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="location-badge">
+
+                📍 Lahore
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-container">
+
+
+        <!-- =================================================
+             HERO SECTION
+             ================================================= -->
+
+        <section class="hero">
+
+            <div>
+
+                <span class="eyebrow">
+                    CLIMATE-READY MOBILITY
+                </span>
+
+                <h2>
+                    Travel smarter during
+                    <span>heavy rainfall.</span>
+                </h2>
+
+                <p>
+                    RainRoute analyzes rainfall and known
+                    waterlogging areas to help you choose
+                    a safer route across Lahore.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ROUTE SEARCH
+             ================================================= -->
+
+        <section class="route-box">
+
+            <div class="section-title">
+
+                <div class="section-icon">
+                    🛣️
+                </div>
+
+                <div>
+
+                    <h3>
+                        Plan your journey
+                    </h3>
+
+                    <p>
+                        Enter your starting point and destination.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="inputs">
+
+                <div class="input-group">
+
+                    <label for="start">
+                        📍 From
+                    </label>
+
+                    <input
+                        type="text"
+                        id="start"
+                        placeholder="e.g. DHA Phase 1"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="destination">
+                        🏁 To
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination"
+                        placeholder="e.g. Gulberg"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="find-button"
+                onclick="findRoute()"
+            >
+
+                🛡️ Find Safe Route
+
+            </button>
+
+
+            <p class="tip">
+
+                💡 Tip: You can also click directly
+                on the map to select locations.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MAP
+             ================================================= -->
+
+        <section class="map-section">
+
+            <div class="map-header">
+
+                <div>
+
+                    <h3>
+                        Lahore Risk Map
+                    </h3>
+
+                    <p>
+                        Known waterlogging areas and routes
+                    </p>
+
+                </div>
+
+
+                <div class="legend">
+
+                    <span>
+                        <i class="high"></i>
+                        High risk
+                    </span>
+
+                    <span>
+                        <i class="moderate"></i>
+                        Moderate
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div id="map"></div>
+
+        </section>
+
+<!-- =====================================================
+     CITIZEN FLOOD REPORT
+     ===================================================== -->
+
+<section class="report-section">
+
+    <div class="section-title">
+
+        <div class="section-icon">
+            🌊
+        </div>
+
+        <div>
+
+            <h3>
+                Report Waterlogging
+            </h3>
+
+            <p>
+                Help other citizens by reporting
+                current road conditions.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="report-button"
+        onclick="startFloodReport()"
+    >
+
+        📍 Report Flooded Area
+
+    </button>
+
+
+    <div
+        id="reportForm"
+        class="report-form"
+        style="display: none;"
+    >
+
+        <p class="report-instruction">
+
+            Click on the map to mark the
+            waterlogged location.
+
+        </p>
+
+
+        <label for="waterLevel">
+            🌊 Water Level
+        </label>
+
+
+        <select id="waterLevel">
+
+            <option value="LOW">
+                Low — Road still passable
+            </option>
+
+            <option value="MODERATE">
+                Moderate — Difficult to pass
+            </option>
+
+            <option value="HIGH">
+                High — Road likely impassable
+            </option>
+
+        </select>
+
+
+        <label for="reportDescription">
+            📝 Description
+        </label>
+
+
+        <textarea
+            id="reportDescription"
+            placeholder="Describe the road condition..."
+        ></textarea>
+
+
+        <button
+            class="submit-report-button"
+            onclick="submitFloodReport()"
+        >
+
+            🌊 Submit Report
+
+        </button>
+
+    </div>
+
+</section>
+
+        <!-- =================================================
+             ROUTE INFORMATION
+             ================================================= -->
+
+        <section id="routeInfo">
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🗺️
+                </div>
+
+                <h3>
+                    Ready to plan your journey
+                </h3>
+
+                <p>
+                    Select your starting point and destination
+                    to see rainfall and flood-aware route
+                    recommendations.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESULT
+             ================================================= -->
+
+        <div id="result"></div>
+
+
+        <!-- =================================================
+             INFORMATION CARDS
+             ================================================= -->
+
+        <section class="features">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🌧️
+                </div>
+
+                <h3>
+                    Rainfall Intelligence
+                </h3>
+
+                <p>
+                    Uses weather data to assess expected
+                    precipitation along your journey.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🌊
+                </div>
+
+                <h3>
+                    Flood Awareness
+                </h3>
+
+                <p>
+                    Identifies known waterlogging and
+                    flood-prone locations.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Safer Routes
+                </h3>
+
+                <p>
+                    Compares available routes and recommends
+                    the safer option.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer>
+
+        <p>
+            🌧️ RainRoute — Smart mobility for a
+            climate-resilient Lahore
+        </p>
+
+        <span>
+            Hackathon Prototype
+        </span>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <!-- Leaflet -->
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+
+    <!-- Flood zone data -->
+    <script src="data/flood_zones.js"></script>
+
+
+    <!-- Main RainRoute logic -->
+    <script src="script.js"></script>
+
+    <!-- Header rain animation (visual only, no routing logic) -->
+    <script src="rain-animation.js"></script>
+
+
+</body>
+
+</html>
