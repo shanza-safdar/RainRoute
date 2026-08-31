@@ -1243,3 +1243,65 @@ footer span {
         rgba(90, 169, 230, 0.45);
 
 }
+
+/* ==========================================================
+   ROUTE RESULT CARDS — FORCE DARK THEME
+   Prevents GitHub/deployment styles from making result
+   backgrounds white and text unreadable.
+   ========================================================== */
+
+#routeInfo {
+    background: rgba(27, 34, 43, 0.90) !important;
+    color: #E9EFF6 !important;
+}
+
+/* All dynamically generated route cards */
+#routeInfo > div {
+    background: #1A222B !important;
+    color: #E9EFF6 !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+}
+
+/* Recommended route card */
+#routeInfo > div[style*="rgba(52, 211, 153"] {
+    background: rgba(27, 65, 55, 0.90) !important;
+    color: #E9EFF6 !important;
+    border: 1px solid rgba(52, 211, 153, 0.55) !important;
+}
+
+/* Recommendation box at the bottom */
+#routeInfo > div:last-child {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(90, 169, 230, 0.18),
+            rgba(52, 211, 153, 0.10)
+        ) !important;
+
+    color: #E9EFF6 !important;
+
+    border: 1px solid rgba(90, 169, 230, 0.40) !important;
+}
+
+/* Force all result headings to remain bright */
+#routeInfo h1,
+#routeInfo h2,
+#routeInfo h3,
+#routeInfo h4 {
+    color: #E9EFF6 !important;
+}
+
+/* Force result paragraphs to remain readable */
+#routeInfo p {
+    color: #B8C4D2 !important;
+}
+
+/* Strong/bold text */
+#routeInfo strong {
+    color: #E9EFF6 !important;
+}
+
+/* Horizontal separators */
+#routeInfo hr {
+    border-top: 1px solid rgba(255, 255, 255, 0.10) !important;
+}
