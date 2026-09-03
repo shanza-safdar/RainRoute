@@ -1591,7 +1591,7 @@ function displayRouteComparison(
         ">
 
             <h2>
-            ⭐ RainRoute Recommendation
+            ⭐ FloodPulse Recommendation
             </h2>
 
 
@@ -1628,7 +1628,7 @@ function displayRouteComparison(
 
             <p>
 
-            RainRoute selected this route based on
+            FloodPulse selected this route based on
             rainfall, historical waterlogging risk,
             and route distance.
 
@@ -1788,7 +1788,7 @@ function resetRoute() {
     ).innerHTML =
 
         `<h2>
-        🗺️ RainRoute
+        🗺️ FloodPulse
         </h2>
 
         <p>
@@ -1840,7 +1840,7 @@ async function findRoute() {
         `<h2>🔎 Finding locations...</h2>
 
         <p>
-        RainRoute is locating your starting point
+        FloodPulse is locating your starting point
         and destination.
         </p>`;
 
@@ -2343,7 +2343,7 @@ function submitFloodReport() {
 
         <p>
         🌊 Your report has been added to the
-        RainRoute map.
+        FloodPulse map.
         </p>`;
 
 }
