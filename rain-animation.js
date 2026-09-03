@@ -1,5 +1,5 @@
 // ============================================================
-// RAINROUTE — HEADER RAIN ANIMATION
+// FloodPulse — HEADER RAIN ANIMATION
 // ============================================================
 // Lightweight canvas rain effect that runs behind the header
 // brand text. Fully self-contained: it only touches the
